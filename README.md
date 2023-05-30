@@ -48,9 +48,9 @@ The below example assumes the Deployment Environment name is `staging` and conta
 ```yaml
 - name: Staging Environment Variables
   id: staging-env-vars
-  uses: raven-actions/environment-variables
+  uses: raven-actions/environment-variables@v1
   with:
-    github-token: ${{ secrets.MY_PAT }}
+    github-token: ${{ secrets.MY_GH_TOKEN }}
     environment: staging
 ```
 
