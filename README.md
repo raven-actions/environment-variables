@@ -3,7 +3,7 @@
 [![GitHub - marketplace](https://img.shields.io/badge/marketplace-environment--variables-blue?logo=github&style=flat-square)](https://github.com/marketplace/actions/environment-variables)
 [![GitHub - release](https://img.shields.io/github/v/release/raven-actions/environment-variables?style=flat-square)](https://github.com/raven-actions/environment-variables/releases/latest)
 [![GitHub - ci](https://img.shields.io/github/actions/workflow/status/raven-actions/environment-variables/ci.yml?logo=github&label=CI&style=flat-square&branch=main&event=push)](https://github.com/raven-actions/environment-variables/actions/workflows/ci.yml?query=branch%3Amain+event%3Apush)
-[![Codecov](https://img.shields.io/codecov/c/github/raven-actions/environment-variables/main?logo=codecov&style=flat-square&token=VxxCGXH3R5)](https://codecov.io/github/raven-actions/environment-variables)
+[![Codecov](https://img.shields.io/codecov/c/github/raven-actions/environment-variables/main?logo=codecov&style=flat-square&token=y1vFW7kExw)](https://codecov.io/github/raven-actions/environment-variables)
 [![GitHub - license](https://img.shields.io/github/license/raven-actions/environment-variables?style=flat-square)](https://github.com/raven-actions/environment-variables/blob/main/LICENSE)
 
 ---
