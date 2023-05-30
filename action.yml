@@ -5,7 +5,7 @@ name: Environment Variables
 description: 🔠 Fetch and use deployment environment variables without hitting deployment.
 author: Dariusz Porowski
 branding:
-  icon: user # https://feathericons.com/
+  icon: dollar-sign # https://feathericons.com/
   color: gray-dark
 
 inputs:
