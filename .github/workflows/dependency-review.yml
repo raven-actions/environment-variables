@@ -1,0 +1,17 @@
+---
+name: Dependency Review
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - ready_for_review
+      - synchronize
+      - reopened
+
+jobs:
+  dependency-review:
+    uses: raven-actions/.workflows/.github/workflows/__dependency-review.yml@main
+    secrets: inherit
