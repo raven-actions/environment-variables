@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+---
+name: Environment Variables
+description: 🔠 Fetch and use deployment environment variables without hitting deployment.
+author: Dariusz Porowski
+branding:
+  icon: user # https://feathericons.com/
+  color: gray-dark
+
+inputs:
+  github-token:
+    description: GitHub token to use for API authentication with environment:read scope.
+    required: true
+  environment:
+    description: Deployment Environment name.
+    required: true
+  output-to:
+    description: |
+      Output to...
+      Default: all
+      Supported options:
+      - env: Set environment variables
+      - action: Set action outputs
+      - all: Set both environment variables and action outputs
+    required: false
+  env-prefix:
+    description: Prefix for environment variables.
+    required: false
+  repository:
+    description: |
+      Full repository name in the {owner}/{repo} format.
+      Default: current repository
+    required: false
+
+runs:
+  using: node16
+  main: dist/index.js
