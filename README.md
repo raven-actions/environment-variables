@@ -66,6 +66,12 @@ In the subsequence step, you can use variables in two ways.
 
 1. as `environment variables`, where the env name is the variable key.
 
+    ```yaml
+    - run: |
+        echo "${{ env.MY_VAR1 }}"
+        echo "${FOOBAR}"
+    ```
+
 Whatever method you choose the output will be:
 
 ```text
