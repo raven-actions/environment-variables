@@ -1,13 +1,9 @@
-# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
-# https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
----
 name: Environment Variables
 description: 🔠 Fetch and use deployment environment variables without hitting deployment.
 author: Dariusz Porowski
 branding:
-  icon: dollar-sign # https://feathericons.com/
+  icon: dollar-sign
   color: gray-dark
-
 inputs:
   github-token:
     description: GitHub token to use for API authentication with environment:read scope.
@@ -32,7 +28,6 @@ inputs:
       Full repository name in the {owner}/{repo} format.
       Default: current repository
     required: false
-
 runs:
   using: node16
   main: dist/index.js
