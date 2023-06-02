@@ -3,22 +3,22 @@
 root: true
 
 plugins:
+  - github
   - jest
   - '@typescript-eslint'
+  - prettier
 extends:
   - plugin:github/recommended
+  - plugin:jest/recommended
   - plugin:@typescript-eslint/recommended
+  - plugin:prettier/recommended
 parser: '@typescript-eslint/parser'
 parserOptions:
-  ecmaVersion: 9
-  sourceType: module
   project: ./tsconfig.json
 rules:
-  semi: off
   i18n-text/no-en: off
   eslint-comments/no-use: off
   import/no-namespace: off
-  no-unused-vars: off
   '@typescript-eslint/no-unused-vars': error
   '@typescript-eslint/explicit-member-accessibility':
     - error
@@ -60,16 +60,21 @@ rules:
     - never
   '@typescript-eslint/type-annotation-spacing': error
   '@typescript-eslint/unbound-method': error
+  prettier/prettier:
+    - error
+    - {}
+    - usePrettierrc: true
 overrides:
   - files:
       - './**/*.test.ts'
       - './**/*.spec.ts'
       - './tests/setup.ts'
       - './tests/helpers.ts'
+      - 'node_modules/**'
     rules:
       '@typescript-eslint/no-explicit-any': off
 env:
   node: true
-  es2018: true
+  es2020: true
   jest/globals: true
   jest: true

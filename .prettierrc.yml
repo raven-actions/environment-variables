@@ -1,11 +1,11 @@
 # yaml-language-server: $schema=https://json.schemastore.org/prettierrc
 ---
-printWidth: 180
+printWidth: 120
 tabWidth: 2
+endOfLine: lf
 useTabs: false
 semi: false
 singleQuote: true
 trailingComma: none
-bracketSpacing: false
+bracketSpacing: true
 arrowParens: avoid
-endOfLine: lf

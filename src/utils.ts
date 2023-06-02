@@ -10,6 +10,8 @@ export enum Color {
   Yellow = '\x1b[33m',
   Blue = '\x1b[34m',
   Magenta = '\x1b[35m',
+  Cyan = '\x1b[36m',
+  White = '\x1b[37m',
   Reset = '\x1b[0m'
 }
 
@@ -48,7 +50,7 @@ export function logError(message: string): void {
 }
 
 export function logDebug(message: string): void {
-  core.debug(formatLog(message, Color.Magenta, Emoji.Debug))
+  core.debug(formatLog(message, Color.White, Emoji.Debug))
 }
 
 export function logGroupStart(name: string, color = Color.Blue, emoji = Emoji.Group): void {
@@ -59,6 +61,23 @@ export function logGroupStart(name: string, color = Color.Blue, emoji = Emoji.Gr
 export function logGroupEnd(name: string): void {
   core.endGroup()
   logDebug(`End '${name}' log group`)
+}
+
+// TODO: tests
+export async function logGroup<T>(
+  name: string,
+  fn: () => Promise<T>,
+  color = Color.Blue,
+  emoji = Emoji.Group
+): Promise<T> {
+  logGroupStart(name, color, emoji)
+  let result: T
+  try {
+    result = await fn()
+  } finally {
+    logGroupEnd(name)
+  }
+  return result
 }
 
 // EXIT
@@ -80,7 +99,8 @@ export function exitSuccess(): void {
 // INPUTS
 export function getInputChoice(key: string, defaultChoice: string, choices: string[]): string {
   const result = getInputOptional(key, defaultChoice).toLowerCase()
-  if (!choices.includes(result)) throw new Error(`'${result}' is not available option for '${key}', possible options: ${choices.join(', ')}`)
+  if (!choices.includes(result))
+    throw new Error(`'${result}' is not available option for '${key}', possible options: ${choices.join(', ')}`)
   return result
 }
 
@@ -90,20 +110,26 @@ export function getInputRequired(key: string, defaultValue = ''): string {
   return result
 }
 
-export function getInputRepository(key: string, defaultValue = ''): {name: string; repo: {owner: string; repo: string}} | undefined {
+export function getInputRepository(
+  key: string,
+  defaultValue = ''
+): { name: string; repo: { owner: string; repo: string } } | undefined {
   const result = getInputOptional(key, defaultValue)
-  let repository: {name: string; repo: {owner: string; repo: string}} | undefined
+  let repository: { name: string; repo: { owner: string; repo: string } } | undefined
   if (result) {
     if (!/^[a-zA-Z0-9-_]+\/[a-zA-Z0-9-_]+$/.test(result)) {
       throw new Error(`Invalid repository format, provided: '${result}', expected: {owner}/{repo}`)
     }
-    repository = {name: result, repo: {owner: result.split('/')[0], repo: result.split('/')[1]}}
+    const [owner, repo] = result.split('/')
+    repository = { name: result, repo: { owner, repo } }
   }
   return repository
 }
 
 export function getInputOptional(key: string, defaultValue = ''): string {
-  return core.getInput(key, {required: false}) || core.getInput(key.replace('-', '_'), {required: false}) || defaultValue
+  return (
+    core.getInput(key, { required: false }) || core.getInput(key.replace('-', '_'), { required: false }) || defaultValue
+  )
 }
 
 // core.getBooleanInput is not handling default from code, so let's use own
@@ -113,24 +139,31 @@ export function getInputBoolean(key: string, defaultValue = 'false'): boolean {
   const result = getInputOptional(key, defaultValue)
   if (trueValue.includes(result)) return true
   if (falseValue.includes(result)) return false
-  throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${key}\nSupport boolean input list: 'true | True | TRUE | false | False | FALSE'`)
+  throw new TypeError(
+    `Input does not meet YAML 1.2 "Core Schema" specification: ${key}\nSupport boolean input list: 'true | True | TRUE | false | False | FALSE'`
+  )
 }
 
 // OUTPUTS
-export function setOutput(key: string, value: string): void {
-  logInfo(`Setting '${key}' action output`)
-  core.setOutput(key, value)
-}
-
-export function setSecret(value: string): void {
-  logInfo('Setting secret')
-  core.setSecret(value)
+export function setOutput(key: string, value: string, secret = false, dryRun = false): void {
+  let secretLog = ''
+  if (secret) {
+    core.setSecret(value)
+    secretLog = 'secret '
+  }
+  logInfo(`Setting ${secretLog}'${key}' action output`)
+  if (!dryRun) core.setOutput(key, value)
 }
 
 // ENVS
-export function setEnvVar(key: string, value: string, envPrefix = ''): void {
+export function setEnvVar(key: string, value: string, envPrefix = '', secret = false, dryRun = false): void {
   envPrefix = envPrefix !== '' ? `${envPrefix.replace(/[^a-z0-9]/gi, '')}__` : ''
   const envKey = `${envPrefix}${key}`.toUpperCase()
-  logInfo(`Setting '${envKey}' environment variable`)
-  core.exportVariable(envKey, value)
+  let secretLog = ''
+  if (secret) {
+    core.setSecret(value)
+    secretLog = 'secret '
+  }
+  logInfo(`Setting ${secretLog}'${envKey}' environment variable`)
+  if (!dryRun) core.exportVariable(envKey, value)
 }

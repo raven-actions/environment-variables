@@ -42,7 +42,9 @@ describe('utils', () => {
   it('should log WARNING', () => {
     jest.spyOn(utils.core, 'warning').mockImplementation(jest.fn())
     utils.logWarning('test')
-    expect(utils.core.warning).toHaveBeenCalledWith(`${utils.Color.Yellow}${utils.Emoji.Warning} test${utils.Color.Reset}`)
+    expect(utils.core.warning).toHaveBeenCalledWith(
+      `${utils.Color.Yellow}${utils.Emoji.Warning} test${utils.Color.Reset}`
+    )
   })
 
   it('should log ERROR', () => {
@@ -54,13 +56,15 @@ describe('utils', () => {
   it('should log DEBUG', () => {
     jest.spyOn(utils.core, 'debug').mockImplementation(jest.fn())
     utils.logDebug('test')
-    expect(utils.core.debug).toHaveBeenCalledWith(`${utils.Color.Magenta}${utils.Emoji.Debug} test${utils.Color.Reset}`)
+    expect(utils.core.debug).toHaveBeenCalledWith(`${utils.Color.White}${utils.Emoji.Debug} test${utils.Color.Reset}`)
   })
 
   it('should start log group', () => {
     jest.spyOn(utils.core, 'startGroup').mockImplementation(jest.fn())
     utils.logGroupStart('test')
-    expect(utils.core.startGroup).toHaveBeenCalledWith(`${utils.Color.Blue}${utils.Emoji.Group} test${utils.Color.Reset} expand for details...`)
+    expect(utils.core.startGroup).toHaveBeenCalledWith(
+      `${utils.Color.Blue}${utils.Emoji.Group} test${utils.Color.Reset} expand for details...`
+    )
   })
 
   it('should end log group', () => {
@@ -68,6 +72,16 @@ describe('utils', () => {
     utils.logGroupEnd('test')
     expect(utils.core.endGroup).toHaveBeenCalledTimes(1)
     expect(utils.core.endGroup).toHaveBeenCalledWith()
+  })
+
+  it('should star/end log group', async () => {
+    // jest.spyOn(utils, 'logGroupStart').mockImplementation(jest.fn())
+    // jest.spyOn(utils, 'logGroupEnd').mockImplementation(jest.fn())
+    await expect(
+      utils.logGroup('Test', async () => {
+        return
+      })
+    ).resolves.toBeUndefined()
   })
 
   // EXIT
@@ -89,7 +103,7 @@ describe('utils', () => {
     })
     expect(() => {
       utils.exitFailure()
-    }).toThrowError('process.exit called with "1"')
+    }).toThrow('process.exit called with "1"')
     expect(mockExit).toHaveBeenCalledWith(utils.core.ExitCode.Failure)
   })
 
@@ -99,13 +113,13 @@ describe('utils', () => {
     })
     expect(() => {
       utils.exitSuccess()
-    }).toThrowError('process.exit called with "0"')
+    }).toThrow('process.exit called with "0"')
     expect(mockExit).toHaveBeenCalledWith(utils.core.ExitCode.Success)
   })
 
   // INPUTS
   it('should get input choice - input supplied', () => {
-    mockInputs = {test: 'foo'}
+    mockInputs = { test: 'foo' }
     expect(utils.getInputChoice('test', 'bar', ['foo', 'bar'])).toEqual('foo')
   })
 
@@ -114,25 +128,25 @@ describe('utils', () => {
   })
 
   it('should get input choice - input invalid', () => {
-    mockInputs = {test: 'invalid'}
+    mockInputs = { test: 'invalid' }
     expect(() => {
       utils.getInputChoice('test', 'bar', ['foo', 'bar'])
-    }).toThrowError(`'invalid' is not available option for 'test', possible options: foo, bar`)
+    }).toThrow(`'invalid' is not available option for 'test', possible options: foo, bar`)
   })
 
   it('should get required input - input supplied', () => {
-    mockInputs = {test: 'foo'}
+    mockInputs = { test: 'foo' }
     expect(utils.getInputRequired('test')).toEqual('foo')
   })
 
   it('should throw an error when required input not supplied', () => {
     expect(() => {
       utils.getInputRequired('test')
-    }).toThrowError(`'test' input required and not supplied or empty`)
+    }).toThrow(`'test' input required and not supplied or empty`)
   })
 
   it('should get optional input - input supplied', () => {
-    mockInputs = {test: 'foo'}
+    mockInputs = { test: 'foo' }
     expect(utils.getInputOptional('test')).toEqual('foo')
   })
 
@@ -145,12 +159,12 @@ describe('utils', () => {
   })
 
   it('should get boolean input - true', () => {
-    mockInputs = {test: 'true'}
+    mockInputs = { test: 'true' }
     expect(utils.getInputBoolean('test')).toEqual(true)
   })
 
   it('should get boolean input - false', () => {
-    mockInputs = {test: 'false'}
+    mockInputs = { test: 'false' }
     expect(utils.getInputBoolean('test')).toEqual(false)
   })
 
@@ -159,26 +173,26 @@ describe('utils', () => {
   })
 
   it('should get boolean input - invalid', () => {
-    mockInputs = {test: 'invalid'}
+    mockInputs = { test: 'invalid' }
     expect(() => {
       utils.getInputBoolean('test')
-    }).toThrowError(/Input does not meet YAML 1.2 "Core Schema" specification/)
+    }).toThrow(/Input does not meet YAML 1.2 "Core Schema" specification/)
   })
 
   // getInputRepository
   it('should get repository input - input supplied', () => {
-    mockInputs = {test: 'test/test'}
+    mockInputs = { test: 'test/test' }
     expect(utils.getInputRepository('test')).toEqual({
       name: 'test/test',
-      repo: {owner: 'test', repo: 'test'}
+      repo: { owner: 'test', repo: 'test' }
     })
   })
 
   it('should throw an error when repository has invalid format', () => {
-    mockInputs = {test: 'invalid'}
+    mockInputs = { test: 'invalid' }
     expect(() => {
       utils.getInputRepository('test')
-    }).toThrowError(`Invalid repository format, provided: 'invalid', expected: {owner}/{repo}`)
+    }).toThrow(`Invalid repository format, provided: 'invalid', expected: {owner}/{repo}`)
   })
 
   it('should get undefined repository', () => {
@@ -192,10 +206,18 @@ describe('utils', () => {
     expect(utils.core.setOutput).toHaveBeenCalledWith('test', 'foo')
   })
 
-  it('should set secret', () => {
+  it('should set secret output', () => {
+    jest.spyOn(utils.core, 'setOutput').mockImplementation(jest.fn())
     jest.spyOn(utils.core, 'setSecret').mockImplementation(jest.fn())
-    utils.setSecret('test')
-    expect(utils.core.setSecret).toHaveBeenCalledWith('test')
+    utils.setOutput('test', 'foo', true)
+    expect(utils.core.setSecret).toHaveBeenCalledWith('foo')
+    expect(utils.core.setOutput).toHaveBeenCalledWith('test', 'foo')
+  })
+
+  it('should not set output - dry-run', () => {
+    jest.spyOn(utils.core, 'setOutput').mockImplementation(jest.fn())
+    utils.setOutput('test', 'foo', false, true)
+    expect(utils.core.setOutput).toHaveBeenCalledTimes(0)
   })
 
   // ENV
@@ -209,5 +231,19 @@ describe('utils', () => {
     jest.spyOn(utils.core, 'exportVariable').mockImplementation(jest.fn())
     utils.setEnvVar('test', 'foo', 'bar')
     expect(utils.core.exportVariable).toHaveBeenCalledWith('BAR__TEST', 'foo')
+  })
+
+  it('should set secret env var', () => {
+    jest.spyOn(utils.core, 'exportVariable').mockImplementation(jest.fn())
+    jest.spyOn(utils.core, 'setSecret').mockImplementation(jest.fn())
+    utils.setEnvVar('test', 'foo', '', true)
+    expect(utils.core.setSecret).toHaveBeenCalledWith('foo')
+    expect(utils.core.exportVariable).toHaveBeenCalledWith('TEST', 'foo')
+  })
+
+  it('should not set env var - dry-run', () => {
+    jest.spyOn(utils.core, 'exportVariable').mockImplementation(jest.fn())
+    utils.setEnvVar('test', 'foo', '', false, true)
+    expect(utils.core.exportVariable).toHaveBeenCalledTimes(0)
   })
 })
