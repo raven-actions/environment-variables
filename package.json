@@ -48,7 +48,7 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
-    "@octokit/plugin-paginate-graphql": "^2.0.1",
+    "@octokit/plugin-paginate-graphql": "^2.0.2",
     "@octokit/plugin-paginate-rest": "^6.1.2",
     "@octokit/plugin-rest-endpoint-methods": "^7.1.2",
     "@octokit/plugin-retry": "^4.1.3",
