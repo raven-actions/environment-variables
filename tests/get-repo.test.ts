@@ -1,8 +1,8 @@
-import {getMockOctokit, getMockRequestError} from './helpers'
-import {getRepo} from '../src/get-repo'
+import { getMockOctokit, getMockRequestError } from './helpers'
+import { getRepo } from '../src/get-repo'
 
 describe('get-repo', () => {
-  const mockRepo = {name: 'test-owner/test-repo', repo: {owner: 'test-owner', repo: 'test-repo'}}
+  const mockRepo = { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } }
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -13,7 +13,7 @@ describe('get-repo', () => {
     const octokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({status: 200, data: {id: 1}})
+          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         }
       }
     })
@@ -29,7 +29,7 @@ describe('get-repo', () => {
         }
       }
     })
-    await expect(getRepo(mockOctokit, mockRepo)).rejects.toThrowError(`'${mockRepo.name}' repository - 404 Not Found`)
+    await expect(getRepo(mockOctokit, mockRepo)).rejects.toThrow(`Get '${mockRepo.name}' Repository - 404 Not Found`)
   })
 
   it('should throw an error when access to repository forbidden', async () => {
@@ -40,7 +40,7 @@ describe('get-repo', () => {
         }
       }
     })
-    await expect(getRepo(mockOctokit, mockRepo)).rejects.toThrowError(`'${mockRepo.name}' repository - 403 Forbidden`)
+    await expect(getRepo(mockOctokit, mockRepo)).rejects.toThrow(`Get '${mockRepo.name}' Repository - 403 Forbidden`)
   })
 
   it('should throw an error when unknown error during getting repository', async () => {
@@ -51,6 +51,6 @@ describe('get-repo', () => {
         }
       }
     })
-    await expect(getRepo(mockOctokit, mockRepo)).rejects.toThrowError(`Server Error`)
+    await expect(getRepo(mockOctokit, mockRepo)).rejects.toThrow(`Server Error`)
   })
 })

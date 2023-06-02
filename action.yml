@@ -9,29 +9,47 @@ branding:
   color: gray-dark
 
 inputs:
+  # required
   github-token:
-    description: GitHub token to use for API authentication with environment:read scope.
+    description: GitHub token to use for API authentication
     required: true
+    default: ${{ github.token }}
+
   environment:
     description: Deployment Environment name.
     required: true
+
+  # optional
+  repository:
+    description: |
+      Full repository name in the {owner}/{repo} format.
+      Default: github.repository
+    required: false
+    default: ${{ github.repository }}
+
   output-to:
     description: |
       Output to...
-      Default: all
       Supported options:
       - env: Set environment variables
       - action: Set action outputs
       - all: Set both environment variables and action outputs
+      Default: all
     required: false
+    default: 'all'
+
   env-prefix:
-    description: Prefix for environment variables.
-    required: false
-  repository:
     description: |
-      Full repository name in the {owner}/{repo} format.
-      Default: current repository
+      Prefix for environment variables.
+      Default: not set
     required: false
+
+  dry-run:
+    description: |
+      Whether or not to actually perform operation. Set to true for testing.
+      Default: false
+    required: false
+    default: 'false'
 
 runs:
   using: node16

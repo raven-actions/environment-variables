@@ -4,10 +4,6 @@ module.exports = {
   setupFiles: [
     '<rootDir>/tests/setup.ts'
   ],
-  coveragePathIgnorePatterns: [
-    '<rootDir>/lib/',
-    '/node_modules/'
-  ],
   clearMocks: true,
   moduleFileExtensions: [
     'ts',
@@ -36,15 +32,19 @@ module.exports = {
     '<rootDir>/src/**/*.ts',
     '<rootDir>/src/**/*.js'
   ],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/lib/',
+    '/node_modules/'
+  ],
   coverageDirectory: 'coverage',
   coverageReporters: ['clover', 'json', 'lcov', 'text', 'text-summary', 'cobertura'],
   coverageThreshold: {
     global: {
       global: {
-        branches: 80,
-        functions: 80,
-        lines: 80,
-        statements: -10,
+        branches: 90,
+        functions: 90,
+        lines: 90,
+        statements: 90,
       }
     }
   }

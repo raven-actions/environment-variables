@@ -1,8 +1,8 @@
-import {getMockOctokit, getMockRequestError} from './helpers'
-import {fetchDeployEnvVars} from '../src/fetch-deployenv-vars'
+import { getMockOctokit, getMockRequestError } from './helpers'
+import { fetchDeployEnvVars } from '../src/fetch-deployenv-vars'
 
 describe('fetch-deployenv-vars', () => {
-  const mockRepo = {name: 'test-owner/test-repo', repo: {owner: 'test-owner', repo: 'test-repo'}}
+  const mockRepo = { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } }
   const mockDeployEnvironment = 'test-environment'
 
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('fetch-deployenv-vars', () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({status: 200, data: {id: 1}})
+          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         },
         actions: {
           listEnvironmentVariables: jest.fn().mockResolvedValueOnce({
@@ -22,8 +22,8 @@ describe('fetch-deployenv-vars', () => {
             data: {
               total_count: 2,
               variables: [
-                {name: 'test-var-1', value: 'test1'},
-                {name: 'test-var-2', value: 'test2'}
+                { name: 'test-var-1', value: 'test1' },
+                { name: 'test-var-2', value: 'test2' }
               ]
             }
           })
@@ -39,41 +39,45 @@ describe('fetch-deployenv-vars', () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({status: 200, data: {id: 1}})
+          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         },
         actions: {
           listEnvironmentVariables: jest.fn().mockRejectedValueOnce(getMockRequestError('Not Found', 404))
         }
       }
     })
-    await expect(fetchDeployEnvVars(mockOctokit, mockRepo, mockDeployEnvironment)).rejects.toThrowError(`'${mockDeployEnvironment}' environment - 404 Not Found`)
+    await expect(fetchDeployEnvVars(mockOctokit, mockRepo, mockDeployEnvironment)).rejects.toThrow(
+      `Fetch '${mockDeployEnvironment}' Environment variables - 404 Not Found`
+    )
   })
 
   it('should throw an error when access to environment forbidden', async () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({status: 200, data: {id: 1}})
+          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         },
         actions: {
           listEnvironmentVariables: jest.fn().mockRejectedValueOnce(getMockRequestError('Forbidden', 403))
         }
       }
     })
-    await expect(fetchDeployEnvVars(mockOctokit, mockRepo, mockDeployEnvironment)).rejects.toThrowError(`'${mockDeployEnvironment}' environment - 403 Forbidden`)
+    await expect(fetchDeployEnvVars(mockOctokit, mockRepo, mockDeployEnvironment)).rejects.toThrow(
+      `Fetch '${mockDeployEnvironment}' Environment variables - 403 Forbidden`
+    )
   })
 
   it('should throw an error when unknown error during getting environment variables', async () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({status: 200, data: {id: 1}})
+          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         },
         actions: {
           listEnvironmentVariables: jest.fn().mockRejectedValueOnce(new Error('Server Error'))
         }
       }
     })
-    await expect(fetchDeployEnvVars(mockOctokit, mockRepo, mockDeployEnvironment)).rejects.toThrowError(`Server Error`)
+    await expect(fetchDeployEnvVars(mockOctokit, mockRepo, mockDeployEnvironment)).rejects.toThrow(`Server Error`)
   })
 })

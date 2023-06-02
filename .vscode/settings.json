@@ -9,7 +9,7 @@
   "git.followTagsWhenSync": true,
   "git.branchProtection": [
     "main",
-    "master",
+    "master"
   ],
   "git.mergeEditor": true,
   "git.enableSmartCommit": true,

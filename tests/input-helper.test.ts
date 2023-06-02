@@ -1,8 +1,8 @@
 import * as utils from '../src/utils'
-import {getGitHubToken, getInputs} from '../src/input-helper'
+import { getGitHubToken, getInputs } from '../src/input-helper'
 
 describe('input-helper', () => {
-  const mockRepo = {name: 'test-owner/test-repo', repo: {owner: 'test-owner', repo: 'test-repo'}}
+  const mockRepo = { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } }
   let mockInputs = {} as any
   jest.spyOn(utils.core, 'getInput').mockImplementation((name: string) => {
     return mockInputs[name]
@@ -32,10 +32,11 @@ describe('input-helper', () => {
     mockInputs['environment'] = 'test'
     const inputs = getInputs(mockRepo)
     expect(inputs).toEqual({
-      repository: {name: 'test-owner/test-repo', repo: {owner: 'test-owner', repo: 'test-repo'}},
+      repository: { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } },
       outputTo: 'all',
       envPrefix: '',
-      deployEnvironment: 'test'
+      deployEnvironment: 'test',
+      dryRun: false
     })
   })
 
@@ -44,12 +45,14 @@ describe('input-helper', () => {
     mockInputs['repository'] = 'test/test'
     mockInputs['output-to'] = 'env'
     mockInputs['env-prefix'] = 'test'
+    mockInputs['dry-run'] = 'true'
     const inputs = getInputs(mockRepo)
     expect(inputs).toEqual({
-      repository: {name: 'test/test', repo: {owner: 'test', repo: 'test'}},
+      repository: { name: 'test/test', repo: { owner: 'test', repo: 'test' } },
       outputTo: 'env',
       envPrefix: 'test',
-      deployEnvironment: 'test'
+      deployEnvironment: 'test',
+      dryRun: true
     })
   })
 })
