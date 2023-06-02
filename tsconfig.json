@@ -1,7 +1,9 @@
 {
   "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
-    "lib": ["ES2020"],
+    "lib": [
+      "ES2020"
+    ],
     "module": "ES2020",
     "target": "ES2020",
     "outDir": "./dist",
@@ -9,5 +11,7 @@
     "noEmit": true,
     "sourceMap": true
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
