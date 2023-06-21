@@ -47,7 +47,7 @@
     "@actions/github": "^5.1.1",
     "@octokit/action": "^6.0.1",
     "@octokit/request-error": "^4.0.1",
-    "octokit": "^2.0.19"
+    "octokit": "^2.1.0"
   },
   "devDependencies": {
     "@octokit/openapi-types": "^17.2.0",
