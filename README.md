@@ -48,7 +48,7 @@ The below example assumes the Deployment Environment name is `staging` and conta
 ```yaml
 - name: Staging Environment Variables
   id: staging-env-vars
-  uses: raven-actions/environment-variables@v1
+  uses: raven-actions/environment-variables@v2
   with:
     github-token: ${{ secrets.MY_GH_TOKEN }}
     environment: staging
@@ -58,19 +58,19 @@ In the subsequence step, you can use variables in two ways.
 
 1. as `action outputs`, where the output name is the variable key.
 
-    ```yaml
-    - run: |
-        echo "${{ steps.staging-env-vars.outputs.MY_VAR1 }}"
-        echo "${{ steps.staging-env-vars.outputs.FOOBAR }}"
-    ```
+   ```yaml
+   - run: |
+       echo "${{ steps.staging-env-vars.outputs.MY_VAR1 }}"
+       echo "${{ steps.staging-env-vars.outputs.FOOBAR }}"
+   ```
 
 1. as `environment variables`, where the env name is the variable key.
 
-    ```yaml
-    - run: |
-        echo "${{ env.MY_VAR1 }}"
-        echo "${FOOBAR}"
-    ```
+   ```yaml
+   - run: |
+       echo "${{ env.MY_VAR1 }}"
+       echo "${FOOBAR}"
+   ```
 
 Whatever method you choose the output will be:
 
