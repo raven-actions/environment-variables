@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@octokit/openapi-types": "^19.0.2",
-    "@octokit/types": "^12.1.1",
+    "@octokit/types": "^12.5.0",
     "@tsconfig/node20": "^20.1.2",
     "@types/jest": "^29.5.8",
     "@types/node": "^20.9.0",
