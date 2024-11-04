@@ -55,7 +55,7 @@
     "@tsconfig/node20": "^20.1.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.20",
-    "@vercel/ncc": "^0.38.1",
+    "@vercel/ncc": "^0.38.2",
     "eslint": "^8.53.0",
     "eslint-plugin-github": "^4.10.1",
     "eslint-plugin-jest": "^28.5.0",
