@@ -50,7 +50,7 @@
     "octokit": "^3.1.2"
   },
   "devDependencies": {
-    "@octokit/openapi-types": "^19.0.2",
+    "@octokit/openapi-types": "^25.0.0",
     "@octokit/types": "^12.6.0",
     "@tsconfig/node20": "^20.1.2",
     "@types/jest": "^29.5.12",
