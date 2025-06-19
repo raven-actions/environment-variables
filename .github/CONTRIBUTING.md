@@ -12,11 +12,11 @@ To contribute, please follow these steps:
 1. Make your changes and commit them with descriptive commit messages; check [Conventional Commits](https://www.conventionalcommits.org) as a suggestion.
 1. Push to your forked repository.
 1. Create a new pull request from your fork to this project.
-1. Please ensure that your Pull Request includes a detailed description of your changes.
+1. Please ensure that your pull request includes a detailed description of your changes and that your code adheres to the code style guidelines outlined below.
 
 ## 🔰 Code of Conduct
 
-All contributors are expected to adhere to the project name code of conduct. Therefore, please review it before contributing [`Code of Conduct`](CODE_OF_CONDUCT.md).
+All contributors are expected to adhere to the project name code of conduct. Therefore, please review it before contributing [`Code of Conduct`](CODE_OF_CONDUCT.md)
 
 ## 🛡️ License
 
