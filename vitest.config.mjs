@@ -1,17 +1,21 @@
+// @ts-check
+
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   // base: './',
   test: {
-    // globals: true,
+    mockReset: true,
     clearMocks: true,
     environment: 'node',
-    setupFiles: ['./tests/setup.ts'],
-    testNamePattern: './tests/*.test.ts',
+    setupFiles: ['tests/setup.ts'],
+    // testNamePattern: 'tests/*.test.{ts,mts}',
     exclude: ['**\/node_modules/**', '**\/dist/**', '**\/.dev/**'],
     coverage: {
       include: ['./src/**/*.ts'],
-      reporter: ['text', 'json', 'html'],
+      ignoreEmptyLines: true,
+      extension: ['.ts'],
+      reporter: ['text', 'json', 'html', 'text-summary', 'lcov'],
       thresholds: {
         100: true
       }
