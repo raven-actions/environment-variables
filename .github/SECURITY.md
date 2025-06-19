@@ -1,4 +1,4 @@
-# 🔒 Security Policy
+# 🔐 Security Policy
 
 ## 🎯 Supported Versions
 
@@ -26,7 +26,7 @@ We will disclose security vulnerabilities in our project as soon as we have veri
 
 ## 🔰 Code of Conduct
 
-All participants in our project are expected to adhere to our [`Code of Conduct`](CODE_OF_CONDUCT.md). Furthermore, we expect everyone to treat each other respectfully and contribute to a positive and inclusive community.
+All participants in our project are expected to adhere to our [`Code of Conduct`](https://github.com/raven-actions/.workflows/blob/main/.github/CODE_OF_CONDUCT.md). Furthermore, we expect everyone to treat each other respectfully and contribute to a positive and inclusive community.
 
 ## ✉️ Contact
 
