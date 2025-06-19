@@ -1,4 +1,5 @@
-import { getGitHub, getOctokit } from '../src/action-provider'
+import { describe, it, expect } from 'vitest'
+import { getGitHub, getOctokit } from '../src/action-provider.ts'
 
 describe('action-provider', () => {
   it('should get GitHub', () => {

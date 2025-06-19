@@ -1,23 +1,27 @@
-import { getMockOctokit, getMockRequestError } from './helpers'
-import { fetchDeployEnvVars } from '../src/fetch-deployenv-vars'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { getMockOctokit, getMockRequestError } from './helpers.ts'
+import { fetchDeployEnvVars } from '../src/fetch-deployenv-vars.ts'
 
 describe('fetch-deployenv-vars', () => {
-  const mockRepo = { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } }
+  const mockRepo = {
+    name: 'test-owner/test-repo',
+    repo: { owner: 'test-owner', repo: 'test-repo' }
+  }
   const mockDeployEnvironment = 'test-environment'
 
   beforeEach(() => {
-    jest.clearAllMocks()
-    jest.resetModules()
+    vi.clearAllMocks()
+    vi.resetModules()
   })
 
   it('should return environment variables', async () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
+          get: vi.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         },
         actions: {
-          listEnvironmentVariables: jest.fn().mockResolvedValueOnce({
+          listEnvironmentVariables: vi.fn().mockResolvedValueOnce({
             status: 200,
             data: {
               total_count: 2,
@@ -39,10 +43,10 @@ describe('fetch-deployenv-vars', () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
+          get: vi.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         },
         actions: {
-          listEnvironmentVariables: jest.fn().mockRejectedValueOnce(getMockRequestError('Not Found', 404))
+          listEnvironmentVariables: vi.fn().mockRejectedValueOnce(getMockRequestError('Not Found', 404))
         }
       }
     })
@@ -55,10 +59,10 @@ describe('fetch-deployenv-vars', () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
+          get: vi.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         },
         actions: {
-          listEnvironmentVariables: jest.fn().mockRejectedValueOnce(getMockRequestError('Forbidden', 403))
+          listEnvironmentVariables: vi.fn().mockRejectedValueOnce(getMockRequestError('Forbidden', 403))
         }
       }
     })
@@ -71,10 +75,10 @@ describe('fetch-deployenv-vars', () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
+          get: vi.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         },
         actions: {
-          listEnvironmentVariables: jest.fn().mockRejectedValueOnce(new Error('Server Error'))
+          listEnvironmentVariables: vi.fn().mockRejectedValueOnce(new Error('Server Error'))
         }
       }
     })

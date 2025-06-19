@@ -10,7 +10,7 @@ quoteProps: as-needed
 jsxSingleQuote: true
 trailingComma: none
 bracketSpacing: true
-bracketSameLine: true
+bracketSameLine: false
 arrowParens: always
 proseWrap: always
 endOfLine: lf

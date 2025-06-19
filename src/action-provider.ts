@@ -1,6 +1,6 @@
 import { context, getOctokit as getGitHubOctokit } from '@actions/github'
-import type { GitHub as GitHubOctokit } from '@actions/github/lib/utils'
-import type { Context } from '@actions/github/lib/context'
+import type { GitHub as GitHubOctokit } from '@actions/github/lib/utils.ts'
+import type { Context } from '@actions/github/lib/context.ts'
 import { Octokit } from 'octokit'
 // import {paginateGraphql} from '@octokit/plugin-paginate-graphql'
 
@@ -10,7 +10,7 @@ export type { OctokitResponse, RequestMethod } from '@octokit/types'
 export type { components as octokitComponents } from '@octokit/openapi-types'
 export { RequestError } from '@octokit/request-error'
 
-export type { Context } from '@actions/github/lib/context'
+export type { Context } from '@actions/github/lib/context.ts'
 
 export type Repository = {
   name: string

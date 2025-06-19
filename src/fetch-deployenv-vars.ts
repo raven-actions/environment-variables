@@ -1,6 +1,7 @@
-import { logDebug, logInfo } from './utils'
-import { Octokit, RestEndpointMethodTypes, RequestError, Repository } from './action-provider'
-import { getRepo } from './get-repo'
+import { logDebug, logInfo } from './utils.js'
+import { Octokit, RestEndpointMethodTypes, RequestError, Repository } from './action-provider.js'
+import { getRepo } from './get-repo.js'
+import { context } from '@actions/github'
 
 export type ghEnvironmentVariables = RestEndpointMethodTypes['actions']['listEnvironmentVariables']['response']
 
@@ -29,7 +30,9 @@ async function tryFetch(
     return await octokit.rest.actions.listEnvironmentVariables({
       repository_id: repositoryId,
       environment_name: deployEnvironment,
-      per_page: 100
+      per_page: 100,
+      owner: context.repo.owner,
+      repo: context.repo.repo
     })
   } catch (error) {
     if (error instanceof RequestError) {

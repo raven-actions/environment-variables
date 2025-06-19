@@ -1,10 +1,10 @@
-import { setFailed, logWarning } from './utils'
-import { getGitHubToken, getInputs } from './input-helper'
-import { getGitHub, getOctokit } from './action-provider'
-import { fetchDeployEnvVars } from './fetch-deployenv-vars'
-import { setOutputs } from './output-helper'
+import { setFailed, logWarning } from './utils.js'
+import { getGitHubToken, getInputs } from './input-helper.js'
+import { getGitHub, getOctokit } from './action-provider.js'
+import { fetchDeployEnvVars } from './fetch-deployenv-vars.js'
+import { setOutputs } from './output-helper.js'
 
-export async function main(): Promise<void> {
+export async function run(): Promise<void> {
   try {
     const githubToken = getGitHubToken()
     const { repository } = getGitHub(githubToken)
@@ -18,5 +18,3 @@ export async function main(): Promise<void> {
   }
   process.exit()
 }
-
-main()

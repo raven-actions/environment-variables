@@ -1,5 +1,5 @@
-import { Repository } from './action-provider'
-import { getInputOptional, getInputRequired, getInputChoice, getInputRepository, getInputBoolean } from './utils'
+import { Repository } from './action-provider.js'
+import { getInputOptional, getInputRequired, getInputChoice, getInputRepository, getInputBoolean } from './utils.js'
 
 export type Input = {
   repository: Repository

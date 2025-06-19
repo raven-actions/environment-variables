@@ -1,17 +1,28 @@
-import * as utils from '../src/utils'
-import { setOutputs, DeployEnvVars } from '../src/output-helper'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import * as utils from '../src/utils.ts'
+import { setOutputs, DeployEnvVars } from '../src/output-helper.ts'
 
 describe('output-helper', () => {
-  const setOutputSpy = jest.spyOn(utils, 'setOutput').mockImplementation(jest.fn())
-  const setEnvVarSpy = jest.spyOn(utils, 'setEnvVar').mockImplementation(jest.fn())
+  const setOutputSpy = vi.spyOn(utils, 'setOutput').mockImplementation(vi.fn())
+  const setEnvVarSpy = vi.spyOn(utils, 'setEnvVar').mockImplementation(vi.fn())
   const mockDeployEnvVars: DeployEnvVars = [
-    { name: 'test1', value: 'test1', created_at: '2020-01-01T00:00:00Z', updated_at: '2020-01-01T00:00:00Z' },
-    { name: 'test2', value: 'test2', created_at: '2020-01-01T00:00:00Z', updated_at: '2020-01-01T00:00:00Z' }
+    {
+      name: 'test1',
+      value: 'test1',
+      created_at: '2020-01-01T00:00:00Z',
+      updated_at: '2020-01-01T00:00:00Z'
+    },
+    {
+      name: 'test2',
+      value: 'test2',
+      created_at: '2020-01-01T00:00:00Z',
+      updated_at: '2020-01-01T00:00:00Z'
+    }
   ]
 
   beforeEach(() => {
-    jest.clearAllMocks()
-    jest.resetModules()
+    vi.clearAllMocks()
+    vi.resetModules()
   })
 
   afterEach(() => {
@@ -43,7 +54,7 @@ describe('output-helper', () => {
   })
 
   it('should end log group', () => {
-    const logInfoSpy = jest.spyOn(utils, 'logInfo').mockImplementation(jest.fn())
+    const logInfoSpy = vi.spyOn(utils, 'logInfo').mockImplementation(vi.fn())
 
     setOutputs([], 'all', '', false)
     expect(logInfoSpy).toHaveBeenCalledTimes(1)

@@ -1,16 +1,20 @@
-import * as utils from '../src/utils'
-import { getGitHubToken, getInputs } from '../src/input-helper'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import * as utils from '../src/utils.ts'
+import { getGitHubToken, getInputs } from '../src/input-helper.ts'
 
 describe('input-helper', () => {
-  const mockRepo = { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } }
+  const mockRepo = {
+    name: 'test-owner/test-repo',
+    repo: { owner: 'test-owner', repo: 'test-repo' }
+  }
   let mockInputs = {} as any
-  jest.spyOn(utils.core, 'getInput').mockImplementation((name: string) => {
+  vi.spyOn(utils.core, 'getInput').mockImplementation((name: string) => {
     return mockInputs[name]
   })
 
   beforeEach(() => {
-    jest.clearAllMocks()
-    jest.resetModules()
+    vi.clearAllMocks()
+    vi.resetModules()
   })
 
   afterEach(() => {
@@ -32,7 +36,10 @@ describe('input-helper', () => {
     mockInputs['environment'] = 'test'
     const inputs = getInputs(mockRepo)
     expect(inputs).toEqual({
-      repository: { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } },
+      repository: {
+        name: 'test-owner/test-repo',
+        repo: { owner: 'test-owner', repo: 'test-repo' }
+      },
       outputTo: 'all',
       envPrefix: '',
       deployEnvironment: 'test',
