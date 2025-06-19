@@ -1,15 +1,15 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { jest } from '@jest/globals'
 import * as utils from '../src/utils.ts'
 
 describe('utils', () => {
   let mockInputs = {} as any
-  vi.spyOn(utils.core, 'getInput').mockImplementation((name: string) => {
+  jest.spyOn(utils.core, 'getInput').mockImplementation((name: string) => {
     return mockInputs[name]
   })
 
   beforeEach(() => {
-    vi.clearAllMocks()
-    vi.resetModules()
+    jest.clearAllMocks()
+    jest.resetModules()
   })
 
   afterEach(() => {
@@ -29,19 +29,19 @@ describe('utils', () => {
 
   // LOG
   it('should log OK', () => {
-    vi.spyOn(utils.core, 'info').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'info').mockImplementation(jest.fn())
     utils.logOk('test')
     expect(utils.core.info).toHaveBeenCalledWith(`${utils.Color.Green}${utils.Emoji.Ok} test${utils.Color.Reset}`)
   })
 
   it('should log INFO', () => {
-    vi.spyOn(utils.core, 'info').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'info').mockImplementation(jest.fn())
     utils.logInfo('test')
     expect(utils.core.info).toHaveBeenCalledWith(`${utils.Color.Blue}${utils.Emoji.Info} test${utils.Color.Reset}`)
   })
 
   it('should log WARNING', () => {
-    vi.spyOn(utils.core, 'warning').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'warning').mockImplementation(jest.fn())
     utils.logWarning('test')
     expect(utils.core.warning).toHaveBeenCalledWith(
       `${utils.Color.Yellow}${utils.Emoji.Warning} test${utils.Color.Reset}`
@@ -49,19 +49,19 @@ describe('utils', () => {
   })
 
   it('should log ERROR', () => {
-    vi.spyOn(utils.core, 'error').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'error').mockImplementation(jest.fn())
     utils.logError('test')
     expect(utils.core.error).toHaveBeenCalledWith(`${utils.Color.Red}${utils.Emoji.Error} test${utils.Color.Reset}`)
   })
 
   it('should log DEBUG', () => {
-    vi.spyOn(utils.core, 'debug').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'debug').mockImplementation(jest.fn())
     utils.logDebug('test')
     expect(utils.core.debug).toHaveBeenCalledWith(`${utils.Color.White}${utils.Emoji.Debug} test${utils.Color.Reset}`)
   })
 
   it('should start log group', () => {
-    vi.spyOn(utils.core, 'startGroup').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'startGroup').mockImplementation(jest.fn())
     utils.logGroupStart('test')
     expect(utils.core.startGroup).toHaveBeenCalledWith(
       `${utils.Color.Blue}${utils.Emoji.Group} test${utils.Color.Reset} expand for details...`
@@ -69,15 +69,15 @@ describe('utils', () => {
   })
 
   it('should end log group', () => {
-    vi.spyOn(utils.core, 'endGroup').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'endGroup').mockImplementation(jest.fn())
     utils.logGroupEnd('test')
     expect(utils.core.endGroup).toHaveBeenCalledTimes(1)
     expect(utils.core.endGroup).toHaveBeenCalledWith()
   })
 
   it('should star/end log group', async () => {
-    // vi.spyOn(utils, 'logGroupStart').mockImplementation(vi.fn())
-    // vi.spyOn(utils, 'logGroupEnd').mockImplementation(vi.fn())
+    // jest.spyOn(utils, 'logGroupStart').mockImplementation(jest.fn())
+    // jest.spyOn(utils, 'logGroupEnd').mockImplementation(jest.fn())
     await expect(
       utils.logGroup('Test', async () => {
         return
@@ -87,19 +87,19 @@ describe('utils', () => {
 
   // EXIT
   it('should set failed - string', () => {
-    vi.spyOn(utils.core, 'setFailed').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'setFailed').mockImplementation(jest.fn())
     utils.setFailed('test')
     expect(utils.core.setFailed).toHaveBeenCalledWith(`${utils.Color.Red}${utils.Emoji.Stop} test${utils.Color.Reset}`)
   })
 
   it('should set failed - error', () => {
-    vi.spyOn(utils.core, 'setFailed').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'setFailed').mockImplementation(jest.fn())
     utils.setFailed(new Error('test'))
     expect(utils.core.setFailed).toHaveBeenCalledWith(`${utils.Color.Red}${utils.Emoji.Stop} test${utils.Color.Reset}`)
   })
 
   it('should exit failure', () => {
-    const mockExit = vi.spyOn(process, 'exit').mockImplementation((number) => {
+    const mockExit = jest.spyOn(process, 'exit').mockImplementation((number) => {
       throw new Error(`process.exit called with "${number}"`)
     })
     expect(() => {
@@ -109,7 +109,7 @@ describe('utils', () => {
   })
 
   it('should exit success', () => {
-    const mockExit = vi.spyOn(process, 'exit').mockImplementation((number) => {
+    const mockExit = jest.spyOn(process, 'exit').mockImplementation((number) => {
       throw new Error(`process.exit called with "${number}"`)
     })
     expect(() => {
@@ -202,48 +202,48 @@ describe('utils', () => {
 
   // OUTPUTS
   it('should set output', () => {
-    vi.spyOn(utils.core, 'setOutput').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'setOutput').mockImplementation(jest.fn())
     utils.setOutput('test', 'foo')
     expect(utils.core.setOutput).toHaveBeenCalledWith('test', 'foo')
   })
 
   it('should set secret output', () => {
-    vi.spyOn(utils.core, 'setOutput').mockImplementation(vi.fn())
-    vi.spyOn(utils.core, 'setSecret').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'setOutput').mockImplementation(jest.fn())
+    jest.spyOn(utils.core, 'setSecret').mockImplementation(jest.fn())
     utils.setOutput('test', 'foo', true)
     expect(utils.core.setSecret).toHaveBeenCalledWith('foo')
     expect(utils.core.setOutput).toHaveBeenCalledWith('test', 'foo')
   })
 
   it('should not set output - dry-run', () => {
-    vi.spyOn(utils.core, 'setOutput').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'setOutput').mockImplementation(jest.fn())
     utils.setOutput('test', 'foo', false, true)
     expect(utils.core.setOutput).toHaveBeenCalledTimes(0)
   })
 
   // ENV
   it('should set env var - no prefix', () => {
-    vi.spyOn(utils.core, 'exportVariable').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'exportVariable').mockImplementation(jest.fn())
     utils.setEnvVar('test', 'foo')
     expect(utils.core.exportVariable).toHaveBeenCalledWith('TEST', 'foo')
   })
 
   it('should set env var - with prefix', () => {
-    vi.spyOn(utils.core, 'exportVariable').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'exportVariable').mockImplementation(jest.fn())
     utils.setEnvVar('test', 'foo', 'bar')
     expect(utils.core.exportVariable).toHaveBeenCalledWith('BAR__TEST', 'foo')
   })
 
   it('should set secret env var', () => {
-    vi.spyOn(utils.core, 'exportVariable').mockImplementation(vi.fn())
-    vi.spyOn(utils.core, 'setSecret').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'exportVariable').mockImplementation(jest.fn())
+    jest.spyOn(utils.core, 'setSecret').mockImplementation(jest.fn())
     utils.setEnvVar('test', 'foo', '', true)
     expect(utils.core.setSecret).toHaveBeenCalledWith('foo')
     expect(utils.core.exportVariable).toHaveBeenCalledWith('TEST', 'foo')
   })
 
   it('should not set env var - dry-run', () => {
-    vi.spyOn(utils.core, 'exportVariable').mockImplementation(vi.fn())
+    jest.spyOn(utils.core, 'exportVariable').mockImplementation(jest.fn())
     utils.setEnvVar('test', 'foo', '', false, true)
     expect(utils.core.exportVariable).toHaveBeenCalledTimes(0)
   })

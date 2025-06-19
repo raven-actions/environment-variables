@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { jest } from '@jest/globals'
 import * as utils from '../src/utils.ts'
 import { setOutputs, DeployEnvVars } from '../src/output-helper.ts'
 
 describe('output-helper', () => {
-  const setOutputSpy = vi.spyOn(utils, 'setOutput').mockImplementation(vi.fn())
-  const setEnvVarSpy = vi.spyOn(utils, 'setEnvVar').mockImplementation(vi.fn())
+  const setOutputSpy = jest.spyOn(utils, 'setOutput').mockImplementation(jest.fn())
+  const setEnvVarSpy = jest.spyOn(utils, 'setEnvVar').mockImplementation(jest.fn())
   const mockDeployEnvVars: DeployEnvVars = [
     {
       name: 'test1',
@@ -21,8 +21,8 @@ describe('output-helper', () => {
   ]
 
   beforeEach(() => {
-    vi.clearAllMocks()
-    vi.resetModules()
+    jest.clearAllMocks()
+    jest.resetModules()
   })
 
   afterEach(() => {
@@ -54,7 +54,7 @@ describe('output-helper', () => {
   })
 
   it('should end log group', () => {
-    const logInfoSpy = vi.spyOn(utils, 'logInfo').mockImplementation(vi.fn())
+    const logInfoSpy = jest.spyOn(utils, 'logInfo').mockImplementation(jest.fn())
 
     setOutputs([], 'all', '', false)
     expect(logInfoSpy).toHaveBeenCalledTimes(1)

@@ -1,4 +1,9 @@
 import path from 'path'
+import { fileURLToPath } from 'url'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+// Import Jest types for globals
+import '@jest/globals'
 
 function getDefaultValues(): object {
   return {}

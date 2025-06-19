@@ -5,7 +5,10 @@
     "module": "NodeNext",
     "outDir": "./dist",
     "noEmit": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": [
+      "jest",
+    ]
   },
   "exclude": [
     "__fixtures__",

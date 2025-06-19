@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { jest } from '@jest/globals'
 import * as utils from '../src/utils.ts'
 import { getGitHubToken, getInputs } from '../src/input-helper.ts'
 
@@ -8,13 +8,13 @@ describe('input-helper', () => {
     repo: { owner: 'test-owner', repo: 'test-repo' }
   }
   let mockInputs = {} as any
-  vi.spyOn(utils.core, 'getInput').mockImplementation((name: string) => {
-    return mockInputs[name]
+  jest.spyOn(utils.core, 'getInput').mockImplementation((name: string) => {
+    return mockInputs[name] || ''
   })
 
   beforeEach(() => {
-    vi.clearAllMocks()
-    vi.resetModules()
+    jest.clearAllMocks()
+    jest.resetModules()
   })
 
   afterEach(() => {

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { jest } from '@jest/globals'
 import { getMockOctokit, getMockRequestError } from './helpers.ts'
 import { getRepo } from '../src/get-repo.ts'
 
@@ -9,15 +9,15 @@ describe('get-repo', () => {
   }
 
   beforeEach(() => {
-    vi.clearAllMocks()
-    vi.resetModules()
+    jest.clearAllMocks()
+    jest.resetModules()
   })
 
   it('should return repository', async () => {
     const octokit = getMockOctokit({
       rest: {
         repos: {
-          get: vi.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
+          get: jest.fn().mockResolvedValueOnce({ status: 200, data: { id: 1 } })
         }
       }
     })
@@ -29,7 +29,7 @@ describe('get-repo', () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: vi.fn().mockRejectedValueOnce(getMockRequestError('Not Found', 404))
+          get: jest.fn().mockRejectedValueOnce(getMockRequestError('Not Found', 404))
         }
       }
     })
@@ -40,7 +40,7 @@ describe('get-repo', () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: vi.fn().mockRejectedValueOnce(getMockRequestError('Forbidden', 403))
+          get: jest.fn().mockRejectedValueOnce(getMockRequestError('Forbidden', 403))
         }
       }
     })
@@ -51,7 +51,7 @@ describe('get-repo', () => {
     const mockOctokit = getMockOctokit({
       rest: {
         repos: {
-          get: vi.fn().mockRejectedValueOnce(new Error('Server Error'))
+          get: jest.fn().mockRejectedValueOnce(new Error('Server Error'))
         }
       }
     })
