@@ -1,4 +1,5 @@
-import * as utils from '../src/utils'
+import { jest } from '@jest/globals'
+import * as utils from '../src/utils.ts'
 
 describe('utils', () => {
   let mockInputs = {} as any
@@ -98,7 +99,7 @@ describe('utils', () => {
   })
 
   it('should exit failure', () => {
-    const mockExit = jest.spyOn(process, 'exit').mockImplementation(number => {
+    const mockExit = jest.spyOn(process, 'exit').mockImplementation((number) => {
       throw new Error(`process.exit called with "${number}"`)
     })
     expect(() => {
@@ -108,7 +109,7 @@ describe('utils', () => {
   })
 
   it('should exit success', () => {
-    const mockExit = jest.spyOn(process, 'exit').mockImplementation(number => {
+    const mockExit = jest.spyOn(process, 'exit').mockImplementation((number) => {
       throw new Error(`process.exit called with "${number}"`)
     })
     expect(() => {

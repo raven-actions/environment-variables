@@ -1,8 +1,12 @@
-import { getMockOctokit, getMockRequestError } from './helpers'
-import { getRepo } from '../src/get-repo'
+import { jest } from '@jest/globals'
+import { getMockOctokit, getMockRequestError } from './helpers.ts'
+import { getRepo } from '../src/get-repo.ts'
 
 describe('get-repo', () => {
-  const mockRepo = { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } }
+  const mockRepo = {
+    name: 'test-owner/test-repo',
+    repo: { owner: 'test-owner', repo: 'test-repo' }
+  }
 
   beforeEach(() => {
     jest.clearAllMocks()

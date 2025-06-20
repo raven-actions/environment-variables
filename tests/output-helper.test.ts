@@ -1,12 +1,23 @@
-import * as utils from '../src/utils'
-import { setOutputs, DeployEnvVars } from '../src/output-helper'
+import { jest } from '@jest/globals'
+import * as utils from '../src/utils.ts'
+import { setOutputs, DeployEnvVars } from '../src/output-helper.ts'
 
 describe('output-helper', () => {
   const setOutputSpy = jest.spyOn(utils, 'setOutput').mockImplementation(jest.fn())
   const setEnvVarSpy = jest.spyOn(utils, 'setEnvVar').mockImplementation(jest.fn())
   const mockDeployEnvVars: DeployEnvVars = [
-    { name: 'test1', value: 'test1', created_at: '2020-01-01T00:00:00Z', updated_at: '2020-01-01T00:00:00Z' },
-    { name: 'test2', value: 'test2', created_at: '2020-01-01T00:00:00Z', updated_at: '2020-01-01T00:00:00Z' }
+    {
+      name: 'test1',
+      value: 'test1',
+      created_at: '2020-01-01T00:00:00Z',
+      updated_at: '2020-01-01T00:00:00Z'
+    },
+    {
+      name: 'test2',
+      value: 'test2',
+      created_at: '2020-01-01T00:00:00Z',
+      updated_at: '2020-01-01T00:00:00Z'
+    }
   ]
 
   beforeEach(() => {

@@ -1,8 +1,12 @@
-import { getMockOctokit, getMockRequestError } from './helpers'
-import { fetchDeployEnvVars } from '../src/fetch-deployenv-vars'
+import { jest } from '@jest/globals'
+import { getMockOctokit, getMockRequestError } from './helpers.ts'
+import { fetchDeployEnvVars } from '../src/fetch-deployenv-vars.ts'
 
 describe('fetch-deployenv-vars', () => {
-  const mockRepo = { name: 'test-owner/test-repo', repo: { owner: 'test-owner', repo: 'test-repo' } }
+  const mockRepo = {
+    name: 'test-owner/test-repo',
+    repo: { owner: 'test-owner', repo: 'test-repo' }
+  }
   const mockDeployEnvironment = 'test-environment'
 
   beforeEach(() => {

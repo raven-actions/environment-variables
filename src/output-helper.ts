@@ -1,5 +1,5 @@
-import { setEnvVar, setOutput, logGroupStart, logGroupEnd, logInfo } from './utils'
-import { RestEndpointMethodTypes } from './action-provider'
+import { setEnvVar, setOutput, logGroupStart, logGroupEnd, logInfo } from './utils.js'
+import { RestEndpointMethodTypes } from './action-provider.js'
 
 export type DeployEnvVars =
   RestEndpointMethodTypes['actions']['listEnvironmentVariables']['response']['data']['variables']

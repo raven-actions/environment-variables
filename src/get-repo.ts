@@ -1,5 +1,5 @@
-import { logDebug } from './utils'
-import { Octokit, RestEndpointMethodTypes, RequestError, Repository } from './action-provider'
+import { logDebug } from './utils.js'
+import { Octokit, RestEndpointMethodTypes, RequestError, Repository } from './action-provider.js'
 
 type ghRepo = RestEndpointMethodTypes['repos']['get']['response']
 

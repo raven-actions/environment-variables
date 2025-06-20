@@ -1,4 +1,4 @@
-import { Octokit, GitHub, RequestError, RequestMethod } from '../src/action-provider'
+import { Octokit, GitHub, RequestError, RequestMethod } from '../src/action-provider.ts'
 
 export function getMockGitHub(octokitMock: any): GitHub {
   return octokitMock as GitHub
